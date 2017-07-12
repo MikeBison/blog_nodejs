@@ -1,0 +1,74 @@
+const Sequelize = require('sequelize')
+const config = require('../../config.js').db
+
+const dataDb = new Sequelize(config.dbname, config.uname, config.pwd, config.opt)
+
+const user = dataDb.define('users', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  username: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  password: {
+    type: Sequelize.STRING
+  },
+  phoneNum: {
+    type: Sequelize.STRING
+  },
+  email: {
+    type: Sequelize.STRING
+  }
+}, {
+  timestamps: false,
+  freezeTableName: true
+})
+
+user.sync()
+
+function saveUser (item) {
+  return user.create(item)
+}
+
+function checkUser (name, pwd, phone, email) {
+  if (!name || !pwd || !phone || !email) {
+    return {
+      result: false,
+      msg: '用户名,密码,电话,邮箱不能为空'
+    }
+  }
+  let result = {
+    result: true,
+    msg: 'ok'
+  }
+  let nameReg = /([a-zA-Z0-9]).{5,20}/
+  let pwdReg = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{7,30}/
+  let phoneReg = /^1\d{10}$/
+  let emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
+  if (!nameReg.test(name)) {
+    result.result = false
+    result.msg = '用户名应为字母或数字,长度为6-20位'
+  }
+  if (!pwdReg.test(pwd)) {
+    result.result = false
+    result.msg = '密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符'
+  }
+  if (!phoneReg.test(phone)) {
+    result.result = false
+    result.msg = '手机号码不正确'
+  }
+  if (!emailReg.test(email)) {
+    result.result = false
+    result.msg = '邮箱不正确'
+  }
+  console.log(result.msg)
+  return result
+}
+
+module.exports = {
+  saveUser,
+  checkUser
+}
