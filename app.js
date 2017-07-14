@@ -14,7 +14,7 @@ app.use(log4js.connectLogger(log4js.getLogger('cheese'), {level: log4js.levels.I
 app.set('views', path.join(__dirname, './src/views'))
 app.set('view engine', 'ejs')
 
-app.use(cookieParser())
+app.use(cookieParser(config.cookie.cookieSecret))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

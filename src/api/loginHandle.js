@@ -18,7 +18,7 @@ function loginHandle (req, res) {
         res.cookie('__user_u', {
           'username': user.uname,
           'session': uid
-        }, { maxAge: config.cookie.age, domain: 'localhost' })
+        }, {maxAge: config.cookie.age, domain: 'localhost', signed: true})
         res.json({
           result: true,
           msg: '登陆成功'

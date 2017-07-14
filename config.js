@@ -28,10 +28,10 @@ const config = {
         min: 0,
         idle: 300000
       }
-    },
+    }
   },
   cookie: {
-    cookieSecret: '',
+    cookieSecret: 'mikebison',
     age: 900000
   },
   pwdSecret: ''
