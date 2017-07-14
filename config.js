@@ -28,7 +28,12 @@ const config = {
         min: 0,
         idle: 300000
       }
-    }
-  }
+    },
+  },
+  cookie: {
+    cookieSecret: '',
+    age: 900000
+  },
+  pwdSecret: ''
 }
 module.exports = config

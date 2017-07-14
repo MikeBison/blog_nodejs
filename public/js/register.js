@@ -1,4 +1,4 @@
-(function ($, axios) {
+(function ($) {
   var Register = function () {
 
   }
@@ -16,17 +16,17 @@
       var phone = $('#phonenum').val()
       var email = $('#email').val()
 
-      axios.post('http://dev.eastday.com:8555/register', {
+      $.post('/register', {
         username: username,
         pwd: pwd,
         phone: phone,
         email: email
-      }).then(function (res) {
-        console.log(res)
-      })
+      }, function (data) {
+        console.log(data)
+      }, 'JSON')
     }
   }
 
   var en = new Register()
   en.init()
-})($, axios)
+})($)

@@ -2,6 +2,7 @@ const express = require('express')
 const config = require('./config.js')
 const path = require('path')
 const log4js = require('log4js')
+const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const webRouter = require('./src/route/webRoute.js')
 const app = express()
@@ -13,6 +14,9 @@ app.use(log4js.connectLogger(log4js.getLogger('cheese'), {level: log4js.levels.I
 app.set('views', path.join(__dirname, './src/views'))
 app.set('view engine', 'ejs')
 
+app.use(cookieParser())
+
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(express.static(config.static))

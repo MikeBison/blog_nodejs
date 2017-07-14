@@ -33,16 +33,20 @@ function saveUser (item) {
   return user.create(item)
 }
 
+function validateUser (username) {
+  return user.findOne({where: {username: username}})
+}
+
 function checkUser (name, pwd, phone, email) {
   if (!name || !pwd || !phone || !email) {
     return {
       result: false,
-      msg: '用户名,密码,电话,邮箱不能为空'
+      msg: {err: '用户名,密码,电话,邮箱为必填项'}
     }
   }
   let result = {
     result: true,
-    msg: 'ok'
+    msg: {}
   }
   let nameReg = /([a-zA-Z0-9]).{5,20}/
   let pwdReg = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{7,30}/
@@ -50,25 +54,25 @@ function checkUser (name, pwd, phone, email) {
   let emailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/
   if (!nameReg.test(name)) {
     result.result = false
-    result.msg = '用户名应为字母或数字,长度为6-20位'
+    result.msg.username = '用户名应为字母或数字,长度为6-20位'
   }
   if (!pwdReg.test(pwd)) {
     result.result = false
-    result.msg = '密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符'
+    result.msg.pwd = '密码中必须包含字母、数字、特称字符，至少8个字符，最多30个字符'
   }
   if (!phoneReg.test(phone)) {
     result.result = false
-    result.msg = '手机号码不正确'
+    result.msg.phone = '手机号码不正确'
   }
   if (!emailReg.test(email)) {
     result.result = false
-    result.msg = '邮箱不正确'
+    result.msg.email = '邮箱不正确'
   }
-  console.log(result.msg)
   return result
 }
 
 module.exports = {
   saveUser,
-  checkUser
+  checkUser,
+  validateUser
 }
