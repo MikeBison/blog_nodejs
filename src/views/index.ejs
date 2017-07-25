@@ -12,6 +12,9 @@
     <h1>hello
         <%if(username&&username!==undefined){%>
             <span><%=username%></span>
+        <%}else{%>
+            <a href="/login">登陆</a>
+            <a href="/register">注册</a>
         <%}%>
     </h1>
 </body>

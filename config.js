@@ -1,4 +1,5 @@
 const config = {
+  host:'localhost',
   port: 8555,
   static: './public',
   errlog: {

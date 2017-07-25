@@ -21,6 +21,9 @@ const user = dataDb.define('users', {
   },
   email: {
     type: Sequelize.STRING
+  },
+  nikeName: {
+    type: Sequelize.STRING
   }
 }, {
   timestamps: false,
@@ -37,11 +40,11 @@ function validateUser (username) {
   return user.findOne({where: {username: username}})
 }
 
-function checkUser (name, pwd, phone, email) {
-  if (!name || !pwd || !phone || !email) {
+function checkUser (name, pwd, phone, email, nikeName) {
+  if (!name || !pwd || !phone || !email || !nikeName) {
     return {
       result: false,
-      msg: {err: '用户名,密码,电话,邮箱为必填项'}
+      msg: {err: '用户名,密码,电话,邮箱,用户昵称为必填项'}
     }
   }
   let result = {
@@ -67,6 +70,10 @@ function checkUser (name, pwd, phone, email) {
   if (!emailReg.test(email)) {
     result.result = false
     result.msg.email = '邮箱不正确'
+  }
+  if (nikeName.length >= 16 || nikeName.length <= 4) {
+    result.result = false
+    result.msg.email = '昵称长度为4-16位字母或者2-8个汉字'
   }
   return result
 }

@@ -1,6 +1,7 @@
 const db = require('../db/db.js')
 const config = require('../../config')
 const uuidV4 = require('uuid/v4')
+const activeUser = require('../activeUser')
 function loginHandle (req, res) {
   let user = req.body
   db.validateUser(user.uname, user.pwd)
@@ -18,11 +19,12 @@ function loginHandle (req, res) {
         res.cookie('__user_u', {
           'username': user.uname,
           'session': uid
-        }, {maxAge: config.cookie.age, domain: 'localhost', signed: true})
+        }, {maxAge: config.cookie.age, domain: config.host, signed: true})
         res.json({
           result: true,
           msg: '登陆成功'
         })
+        activeUser.uid = user.uname
       }
     } else {
       res.json({
