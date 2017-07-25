@@ -1,50 +1,59 @@
 const Sequelize = require('sequelize')
 const config = require('../../config.js').db
 
-const dataDb = new Sequelize(config.dbname, config.uname, config.pwd, config.opt)
-
-const user = dataDb.define('users', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
+const dataDb = new Sequelize(
+  config.dbname,
+  config.uname,
+  config.pwd,
+  config.opt
+)
+// 用户数据模型
+const user = dataDb.define(
+  'users',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    username: {
+      type: Sequelize.STRING,
+      unique: true
+    },
+    password: {
+      type: Sequelize.STRING
+    },
+    phoneNum: {
+      type: Sequelize.STRING
+    },
+    email: {
+      type: Sequelize.STRING
+    },
+    nikeName: {
+      type: Sequelize.STRING
+    }
   },
-  username: {
-    type: Sequelize.STRING,
-    unique: true
-  },
-  password: {
-    type: Sequelize.STRING
-  },
-  phoneNum: {
-    type: Sequelize.STRING
-  },
-  email: {
-    type: Sequelize.STRING
-  },
-  nikeName: {
-    type: Sequelize.STRING
+  {
+    timestamps: false,
+    freezeTableName: true
   }
-}, {
-  timestamps: false,
-  freezeTableName: true
-})
+)
 
 user.sync()
 
-function saveUser (item) {
+function saveUser(item) {
   return user.create(item)
 }
 
-function validateUser (username) {
-  return user.findOne({where: {username: username}})
+function validateUser(username) {
+  return user.findOne({ where: { username: username } })
 }
 
-function checkUser (name, pwd, phone, email, nikeName) {
+function checkUser(name, pwd, phone, email, nikeName) {
   if (!name || !pwd || !phone || !email || !nikeName) {
     return {
       result: false,
-      msg: {err: '用户名,密码,电话,邮箱,用户昵称为必填项'}
+      msg: { err: '用户名,密码,电话,邮箱,用户昵称为必填项' }
     }
   }
   let result = {
