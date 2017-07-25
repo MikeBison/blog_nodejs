@@ -7,7 +7,7 @@ const dataDb = new Sequelize(
   config.pwd,
   config.opt
 )
-// 用户数据模型
+// 用户数据模型部分
 const user = dataDb.define(
   'users',
   {
@@ -40,7 +40,7 @@ const user = dataDb.define(
 )
 
 user.sync()
-
+//用户数据模型操作
 function saveUser(item) {
   return user.create(item)
 }
@@ -86,6 +86,18 @@ function checkUser(name, pwd, phone, email, nikeName) {
   }
   return result
 }
+
+// 心情数据
+let blog = dataDb.define(
+  'blogs',
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    }
+  }
+)
 
 module.exports = {
   saveUser,
