@@ -87,17 +87,42 @@ function checkUser(name, pwd, phone, email, nikeName) {
   return result
 }
 
-// 心情数据
-let blog = dataDb.define(
+// 微博模型
+const blog = dataDb.define(
   'blogs',
   {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true
+    },
+    username: {
+      type: Sequelize.STRING,
+      unique: true
+    },
+    date: {
+      type: Sequelize.STRING
+    },
+    imgs: {
+      type: Sequelize.STRING
+    },
+    content: {
+      type: Sequelize.STRING,
+      unique: true
     }
+  },
+  {
+    timestamps: false,
+    freezeTableName: true
   }
 )
+
+blog.sync()
+
+// 博客操作
+function saveBlog(item) {
+  return blog.create(item)
+}
 
 module.exports = {
   saveUser,

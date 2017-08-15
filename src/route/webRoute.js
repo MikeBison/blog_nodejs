@@ -4,6 +4,7 @@ const register = require('../controller/register')
 const registerHandle = require('../api/registerHandle')
 const login = require('../controller/login')
 const loginHandle = require('../api/loginHandle')
+const logoutHandle = require('../api/logoutHandle')
 const router = express.Router()
 
 /* 首页路由 */
@@ -17,4 +18,6 @@ router.post('/register', registerHandle.registerHandle)
 router.get('/login', login.getPage)
 router.post('/login', loginHandle.loginHandle)
 
+/* 登出api */
+router.post('/logout', logoutHandle.logout)
 module.exports = router

@@ -24,7 +24,7 @@ function loginHandle (req, res) {
           result: true,
           msg: '登陆成功'
         })
-        activeUser.uid = user.uname
+        activeUser[uid] = user.uname
       }
     } else {
       res.json({

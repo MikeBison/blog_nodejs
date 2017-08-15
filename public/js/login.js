@@ -16,7 +16,7 @@
           pwd: pwd
         }, function (res) {
           if (res.result) {
-            history.go(-1)
+            window.location.href = '/'
           }
         }, 'JSON')
       })
