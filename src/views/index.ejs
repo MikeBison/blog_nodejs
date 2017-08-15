@@ -17,6 +17,12 @@
             <a href="/login">登陆</a>
             <a href="/register">注册</a>
         <%}%>
+        <%if(username&&username!==undefined){%>
+            <div>
+                <textarea name="" id="blog" cols="30" rows="10"></textarea>
+                <button id='publicBlog'>发布博客</button>
+            </div>
+        <%}%>
     </h1>
 </body>
 <script src="/js/lib/jquery-1.8.3.js"></script>
