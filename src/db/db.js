@@ -127,5 +127,6 @@ function saveBlog(item) {
 module.exports = {
   saveUser,
   checkUser,
-  validateUser
+  validateUser,
+  saveBlog
 }
