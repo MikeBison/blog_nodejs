@@ -1,7 +1,7 @@
 const activeUser = require('../activeUser')
 const config = require('../../config')
 function logout (req, res) {
-  if (delete activeUser[req.signedCookies['__user_u']]) {
+  if (delete activeUser[req.signedCookies['__user_u'].session]) {
     res.cookie('__user_u', {
       'username': '',
       'session': ''

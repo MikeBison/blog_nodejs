@@ -5,7 +5,7 @@ const registerHandle = require('../api/registerHandle')
 const login = require('../controller/login')
 const loginHandle = require('../api/loginHandle')
 const logoutHandle = require('../api/logoutHandle')
-const publicHandle = require('../api/publicHandle')
+const blogHandle = require('../api/blogHandle')
 const router = express.Router()
 
 /* 首页路由 */
@@ -22,6 +22,7 @@ router.post('/login', loginHandle.loginHandle)
 /* 登出api */
 router.post('/logout', logoutHandle.logout)
 
-/* 发布api */
-router.post('/publicBlog', publicHandle.publicBlog_s)
+/* 发布短博客 */
+router.post('/publicBlog', blogHandle.publicBlog_s)
+router.post('/getHotBlog', blogHandle.getHotBlog_s)
 module.exports = router

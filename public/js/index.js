@@ -36,8 +36,14 @@
         },function (res) {
           if (res.result) {
             console.log("发布成功::" + new Date())
+            $.post('/getHotBlog',{
+              page: 1,
+              pageSize: 20
+            },function (res) {
+              console.log(res)
+            })
           } else {
-            console.log('error::' + res.msg)
+            location.href = '/login'
           }
         }, 'JSON')
       })

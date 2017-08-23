@@ -23,6 +23,13 @@
                 <button id='publicBlog'>发布博客</button>
             </div>
         <%}%>
+        <%blogs.forEach(function (i, index){%>
+            <div>
+                <span><%=i.username%>:</span>
+                <p><%=i.content%></p>
+                <span><%=i.date%></span>
+            </div>
+        <%})%>
     </h1>
 </body>
 <script src="/js/lib/jquery-1.8.3.js"></script>

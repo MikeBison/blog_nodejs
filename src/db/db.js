@@ -88,28 +88,31 @@ function checkUser(name, pwd, phone, email, nikeName) {
 }
 
 // 微博模型
-const blog = dataDb.define(
-  'blogs',
+const blog_s = dataDb.define(
+  'blogs_short',
   {
     id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.BIGINT,
       primaryKey: true,
       autoIncrement: true
     },
     username: {
       type: Sequelize.STRING,
-      unique: true
     },
     date: {
-      type: Sequelize.STRING
+      type: Sequelize.DATE, 
+      defaultValue: Sequelize.NOW
     },
     imgs: {
       type: Sequelize.STRING
     },
     content: {
       type: Sequelize.STRING,
-      unique: true
-    }
+    },
+    hot: {
+      type: Sequelize.BIGINT,
+      defaultValue: 0
+    },
   },
   {
     timestamps: false,
@@ -117,16 +120,20 @@ const blog = dataDb.define(
   }
 )
 
-blog.sync()
+blog_s.sync()
 
 // 博客操作
-function saveBlog(item) {
-  return blog.create(item)
+function saveBlog_s(item) {
+  return blog_s.create(item)
+}
+function getHotBlog_s(cond) {
+  return blog_s.findAll(cond)
 }
 
 module.exports = {
   saveUser,
   checkUser,
   validateUser,
-  saveBlog
+  saveBlog_s,
+  getHotBlog_s
 }
