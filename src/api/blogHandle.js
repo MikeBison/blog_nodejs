@@ -3,6 +3,14 @@ const db = require('../db/db')
 const config = require('../../config')
 
 function publicBlog_s (req, res) {
+  if (!req.signedCookies['__user_u']) {
+    res.json({
+      result: true,
+      code: '00001',
+      msg: '登陆信息已失效'
+    })
+    return
+  }
   if (actUser[req.signedCookies['__user_u'].session] && actUser[req.signedCookies['__user_u'].session].expire > new Date().getTime()) {
     let content = req.body.content
     let blog_s = {
@@ -32,11 +40,19 @@ function publicBlog_s (req, res) {
 }
 
 function getHotBlog_s (req, res) {
-  let cond = req.body.content
+  if (!req.signedCookies['__user_u']) {
+    res.json({
+      result: true,
+      code: '00001',
+      msg: '登陆信息已失效'
+    })
+    return
+  }
+  let cond = req.body
   db.getHotBlog_s({
     order: [['hot', 'DESC']],
-    offset: cond.page * cond.pageSize,
-    limit: 20
+    offset: (cond.page - 1) * cond.pageSize,
+    limit: parseInt(cond.pageSize)
   }).then(data => {
     res.json({
       result: true,

@@ -9,15 +9,26 @@ function getIndex (req, res) {
     limit: 20,
     order: [['hot', 'DESC']]
   }).then(data => {
+    let result = []
+    data.forEach((item,index) => {
+      result.push({
+        id: item.dataValues.id,
+        username: item.dataValues.username,
+        hot: item.dataValues.hot,
+        imgs: item.dataValues.imgs,
+        content: item.dataValues.content,
+        date: moment(item.dataValues.date).format('YYYY-MM-DD hh:mm:ss')
+      })
+    })
     if (user) {
       res.render('index', {
         username: user.username,
-        blogs: data
+        blogs: result
       })
     } else {
       res.render('index', {
         username: undefined,
-        blogs: data
+        blogs: result
       })
     }
   })

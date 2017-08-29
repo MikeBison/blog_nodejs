@@ -1,5 +1,5 @@
 const config = {
-  host:'localhost',
+  host: 'localhost',
   port: 8555,
   static: './public',
   errlog: {
@@ -8,11 +8,11 @@ const config = {
   },
   db: {
     dbname: 'victoryOrDie',
-    uname: 'admin',
-    pwd: '1234',
+    uname: 'root',
+    pwd: 'admin',
     opt: {
       host: '127.0.0.1',
-      port: '8089',
+      port: '3306',
       dialect: 'mysql',
       dialectOptions: {
         charset: 'utf8mb4',

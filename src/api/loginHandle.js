@@ -24,11 +24,7 @@ function loginHandle (req, res) {
           result: true,
           msg: '登陆成功'
         })
-        activeUser[uid] = {username: user.uname, expire: new Date().getTime() + config.cookie.age}
-        setTimeout(() => {
-          delete activeUser[uid]
-          console.log(`用户:${user.uname}过期,删除记录时间${new Date()}`)
-        }, config.cookie.age)
+        activeUser.setUser(uid, {username: user.uname, expire: config.cookie.age})
       }
     } else {
       res.json({

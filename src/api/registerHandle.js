@@ -25,7 +25,7 @@ function registerHandle (req, res, next) {
         result: true,
         msg: '注册成功'
       })
-      activeUser.uid = user.username
+      activeUser.setUser(uid, {username: user.uname, expire: config.cookie.age})
     }).catch(function (err) {
       if (err.original.errno === 1062) {
         res.json({
