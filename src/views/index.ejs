@@ -20,6 +20,10 @@
         <%if(username&&username!==undefined){%>
             <div>
                 <textarea name="" id="blog" cols="30" rows="10"></textarea>
+                <form action="/imgUpload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="imgUpload" id="file">
+                    <input type="submit" value="提交文件">
+                </form>
                 <button id='publicBlog'>发布博客</button>
             </div>
         <%}%>

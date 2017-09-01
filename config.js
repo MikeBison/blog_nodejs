@@ -35,6 +35,7 @@ const config = {
     cookieSecret: 'mikebison',
     age: 900000
   },
-  pwdSecret: ''
+  pwdSecret: '',
+  filePath: '/dataFiles'
 }
 module.exports = config

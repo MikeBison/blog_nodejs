@@ -6,6 +6,7 @@ const login = require('../controller/login')
 const loginHandle = require('../api/loginHandle')
 const logoutHandle = require('../api/logoutHandle')
 const blogHandle = require('../api/blogHandle')
+const fileUpload = require('../api/fileUpload')
 const router = express.Router()
 
 /* 首页路由 */
@@ -25,4 +26,7 @@ router.post('/logout', logoutHandle.logout)
 /* 发布短博客 */
 router.post('/publicBlog', blogHandle.publicBlog_s)
 router.post('/getHotBlog', blogHandle.getHotBlog_s)
+
+/* 上传图片文件 */
+router.post('/imgUpload', fileUpload.imgUpload)
 module.exports = router
